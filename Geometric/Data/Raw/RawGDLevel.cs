@@ -3,6 +3,7 @@
 #endregion
 
 using System.Text.Json.Serialization;
+using Geometric.Json;
 
 namespace Geometric.Data.Raw
 {
@@ -14,37 +15,44 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The name of the level.
         /// </summary>
-        [JsonPropertyName("name")] public string Name;
+        [JsonPropertyName("name")] [FallbackString]
+        public string Name;
 
         /// <summary>
         ///     The ID of the level.
         /// </summary>
-        [JsonPropertyName("id")] public string Id;
+        [JsonPropertyName("id")] [FallbackString]
+        public string Id;
 
         /// <summary>
         ///     The description.
         /// </summary>
-        [JsonPropertyName("description")] public string Description;
+        [JsonPropertyName("description")] [FallbackString]
+        public string Description;
 
         /// <summary>
         ///     The name of the level's author.
         /// </summary>
-        [JsonPropertyName("author")] public string Author;
+        [JsonPropertyName("author")] [FallbackString]
+        public string Author;
 
         /// <summary>
         ///     The unique player ID of the level's author.
         /// </summary>
-        [JsonPropertyName("playerID")] public string PlayerId;
-        
+        [JsonPropertyName("playerID")] [FallbackString]
+        public string PlayerId;
+
         /// <summary>
         ///     The account ID of the level's author.
         /// </summary>
-        [JsonPropertyName("accountID")] public string AccountId;
+        [JsonPropertyName("accountID")] [FallbackString]
+        public string AccountId;
 
         /// <summary>
         ///     The difficulty of the level. Includes demon rating.
         /// </summary>
-        [JsonPropertyName("difficulty")] public string Difficulty;
+        [JsonPropertyName("difficulty")] [FallbackString]
+        public string Difficulty;
 
         /// <summary>
         ///     Number of downloads.
@@ -64,7 +72,8 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The length of the level (Tiny, Short, Medium, Long, or XL).
         /// </summary>
-        [JsonPropertyName("length")] public string Length;
+        [JsonPropertyName("length")] [FallbackString]
+        public string Length;
 
         /// <summary>
         ///     Amount of stars received for beating the level.
@@ -94,7 +103,8 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The version of Geometry Dash the level was released on (1.9, 2.1, etc.).
         /// </summary>
-        [JsonPropertyName("gameVersion")] public string GameVersion;
+        [JsonPropertyName("gameVersion")] [FallbackString]
+        public string GameVersion;
 
         /// <summary>
         ///     Number of times the level was updated.
@@ -104,7 +114,8 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The original level ID, if the level was copied. Otherwise returns 0.
         /// </summary>
-        [JsonPropertyName("copiedID")] public string CopiedId;
+        [JsonPropertyName("copiedID")] [FallbackString]
+        public string CopiedId;
 
         /// <summary>
         ///     If the level has two player mode enabled.
@@ -139,7 +150,7 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The number of objects in the level. This was added in a recent version of Geometry Dash, so older levels will simply return 0.
         /// </summary>
-        [JsonPropertyName("objects")] public uint Objects;
+        [JsonPropertyName("objects")] public int Objects;
 
         /// <summary>
         ///     Whether the level is considered "large" (more than 40k objects).
@@ -158,63 +169,72 @@ namespace Geometric.Data.Raw
         /// <remarks>
         ///     You can easily access this image using <c>gdbrowser.com/assets/difficulties/{difficultyFace}.png</c>.
         /// </remarks>
-        [JsonPropertyName("difficultyFace")] public string DifficultyFace;
+        [JsonPropertyName("difficultyFace")] [FallbackString]
+        public string DifficultyFace;
 
         /// <summary>
         ///     The name of the song used for the level.
         /// </summary>
-        [JsonPropertyName("songName")] public string SongName;
+        [JsonPropertyName("songName")] [FallbackString]
+        public string SongName;
 
         /// <summary>
         ///     The name of the author of said song.
         /// </summary>
-        [JsonPropertyName("songAuthor")] public string SongAuthor;
+        [JsonPropertyName("songAuthor")] [FallbackString]
+        public string SongAuthor;
 
         /// <summary>
         ///     The size of the song in megabytes, if a custom song was used.
         /// </summary>
-        [JsonPropertyName("songSize")] public string SongSize;
+        [JsonPropertyName("songSize")] [FallbackString]
+        public string SongSize;
 
         /// <summary>
         ///     The ID of the song (again). If a non-custom song was used, this will return a level number of the song.
         /// </summary>
-        [JsonPropertyName("songID")] public int SongId;
+        [JsonPropertyName("songID")] [FallbackString]
+        public string SongId;
 
         /// <summary>
         ///     The link to the raw MP3 of the song, if available.
         /// </summary>
-        [JsonPropertyName("songLink")] public string SongLink;
+        [JsonPropertyName("songLink")] [FallbackString]
+        public string SongLink;
 
         // ReSharper disable once CommentTypo
         /// <summary>
         ///     The level's position on the Demon List (Pointercrate). Extreme demons only.
         /// </summary>
-        [JsonPropertyName("demonList")] public string DemonList;
+        [JsonPropertyName("demonList")] public int DemonList;
 
         /// <summary>
         ///     Time since the level was uploaded (sent as "x days/weeks/months ago", since it's all the API sends).
         /// </summary>
-        [JsonPropertyName("uploaded")] public string Uploaded;
+        [JsonPropertyName("uploaded")] [FallbackString]
+        public string Uploaded;
 
         /// <summary>
         ///     Time since the level was last updated.
         /// </summary>
-        [JsonPropertyName("updated")] public string Updated;
+        [JsonPropertyName("updated")] [FallbackString]
+        public string Updated;
 
         /// <summary>
         ///     The password to copy the level. 0 means the level isn't copyable and 1 means it's free to copy.
         /// </summary>
-        [JsonPropertyName("password")] public string Password;
+        [JsonPropertyName("password")] [FallbackString]
+        public string Password;
 
         /// <summary>
         ///     The amount of seconds spent in the editor (currently only works when using GDBrowser locally).
         /// </summary>
-        [JsonPropertyName("editorTime")] public ulong EditorTime;
+        [JsonPropertyName("editorTime")] public int EditorTime;
 
         /// <summary>
         ///     The amount of seconds spent in the editor, including time from the level it was copied from.
         /// </summary>
-        [JsonPropertyName("totalEditorTime")] public ulong TotalEditorTime;
+        [JsonPropertyName("totalEditorTime")] public int TotalEditorTime;
 
         /// <summary>
         ///     If the level contains a checkbox for Low Detail Mode.
@@ -239,16 +259,19 @@ namespace Geometric.Data.Raw
         /// <summary>
         ///     The Unix timestamp for when the daily/weekly level expires.
         /// </summary>
-        [JsonPropertyName("nextDailyTimestamp")] public string NextDailyTimestamp;
+        [JsonPropertyName("nextDailyTimestamp")] [FallbackString]
+        public string NextDailyTimestamp;
 
         /// <summary>
         ///     An unknown data string.
         /// </summary>
-        [JsonPropertyName("extraString")] public string ExtraString;
+        [JsonPropertyName("extraString")] [FallbackString]
+        public string ExtraString;
 
         /// <summary>
         ///     The actual data of the level, compressed with GZIP.
         /// </summary>
-        [JsonPropertyName("data")] public string Data;
+        [JsonPropertyName("data")] [FallbackString]
+        public string Data;
     }
 }
