@@ -3,11 +3,11 @@
 #endregion
 
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Geometric.Data.Parsed;
 using Geometric.Data.Parsed.Levels;
 using Geometric.Data.Raw;
+using Newtonsoft.Json;
 
 namespace Geometric.Web
 {
@@ -37,16 +37,20 @@ namespace Geometric.Web
         {
             using HttpResponseMessage response = await WebClient.GetAsync(url);
             TParser parser = new();
-            parser.ParseRawData(JsonSerializer.Deserialize<TParsed>(await response.Content.ReadAsStringAsync()));
+            string result = await response.Content.ReadAsStringAsync();
+            TParsed parsed = JsonConvert.DeserializeObject<TParsed>(result);
+            parser.ParseRawData(parsed);
 
-            return parser;
+            return await Task.FromResult(parser);
         }
 
         public TParser Get<TParser, TParsed>(string url) where TParser : IParsedDataType<TParsed>, new()
         {
             using HttpResponseMessage response = WebClient.GetAsync(url).Result;
             TParser parser = new();
-            parser.ParseRawData(JsonSerializer.Deserialize<TParsed>(response.Content.ReadAsStringAsync().Result));
+            string result = response.Content.ReadAsStringAsync().Result;
+            TParsed parsed = JsonConvert.DeserializeObject<TParsed>(result);
+            parser.ParseRawData(parsed);
 
             return parser;
         }
